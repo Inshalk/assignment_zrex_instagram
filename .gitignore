@@ -6,4 +6,5 @@
 
 # Node.js ignores
 **/node_modules/
+**/.env
 **/npm-debug.log
