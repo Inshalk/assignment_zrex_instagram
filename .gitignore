@@ -1,0 +1,9 @@
+# Flutter ignores
+**/build/
+**/.dart_tool/
+**/.packages
+**/ios/Flutter/Generated.xcconfig
+
+# Node.js ignores
+**/node_modules/
+**/npm-debug.log
