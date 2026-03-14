@@ -57,7 +57,10 @@ const userSchema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
-});
+}, { 
+  timestamps: true // This adds 'createdAt' and 'updatedAt' fields automatically
+}
+);
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;
