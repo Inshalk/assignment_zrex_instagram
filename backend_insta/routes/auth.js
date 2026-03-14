@@ -2,6 +2,7 @@ const express = require("express");
 const User = require("../models/user");
 
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const authRouter = express.Router();
 
@@ -53,7 +54,13 @@ authRouter.post("/api/signin", async (req, res) => {
         //Remove sensitive information
         const { password, ...userWithoutPassword } = findUser._doc;
         //Sends the Response
-        res.json({ userWithoutPassword });
+        // res.json({ userWithoutPassword });
+        // GENERATE THE TOKEN
+    const token = jwt.sign({ id: findUser._id }, "passwordKey"); // Use a secure key in production
+
+    // SEND THE TOKEN AND USER DATA
+    // We spread user._doc and add the token key explicitly
+    res.json({ token, ...findUser._doc })
       }
     }
   } catch (e) {
