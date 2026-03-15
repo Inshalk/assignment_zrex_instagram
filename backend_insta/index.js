@@ -5,6 +5,7 @@ const postRouter= require('./routes/post');
 const likeRouter= require('./routes/like');
 const commentRouter= require('./routes/comment');
 const followRouter= require('./routes/follow');
+require("dotenv").config();
 
 const cors=require('cors');
 const PORT=3000;
@@ -19,10 +20,9 @@ app.use(likeRouter);
 app.use(commentRouter);
 app.use(followRouter);
 
-const DB='mongodb+srv://insta_db_user:inshal_khan@cluster0.4cmxk49.mongodb.net/?appName=Cluster0';
 const dns = require("dns"); dns.setServers(["1.1.1.1", "8.8.8.8"]);
-mongoose.connect(DB).then(()=>{
-    console.log("mongoDB connected");
+mongoose.connect(process.env.DATABASE).then(()=>{
+    console.log("MongoDB Connected");
 });
 
 app.get('/hello',(req,res)=>{
