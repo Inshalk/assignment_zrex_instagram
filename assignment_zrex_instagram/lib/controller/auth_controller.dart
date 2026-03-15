@@ -40,6 +40,7 @@ class AuthController {
               'application/json; charset=UTF-8', //specify the context type as json
         },
       );
+      
       manageHttpResponse(
         response: response,
         context: context,
@@ -76,6 +77,10 @@ class AuthController {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
+
+      // CRITICAL: Check if the widget still exists after the network call
+    if (!context.mounted) return;
+    
       //handle the response using httpResponse
       manageHttpResponse(
         response: response,
@@ -97,11 +102,17 @@ class AuthController {
           //Encode the user data recive from the backend as json
           final userJson = jsonEncode(jsonDecode(response.body));
 
+          //Store the data in sharedPrefference for future use
+          await preferences.setString('user', userJson);
+
+          // SAFETY CHECK: Ensure the user hasn't left the login screen 
+        // while we were saving to SharedPreferences
+        if (!context.mounted) return;
+
           //Update the application state with the user data with riverpod
           ref.read(userProvider.notifier).setUser(response.body);
 
-          //Store the data in sharedPrefference for future use
-          await preferences.setString('user', userJson);
+          
 
           if (ref.read(userProvider)!.token.isNotEmpty) {
             Navigator.pushAndRemoveUntil(
@@ -114,7 +125,7 @@ class AuthController {
         },
       );
     } catch (e) {
-      showSnackBar(context, e.toString());
+      if(context.mounted) showSnackBar(context, e.toString());
       print(e);
     }
   }

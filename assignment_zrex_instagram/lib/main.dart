@@ -1,6 +1,5 @@
 import 'package:assignment_zrex_instagram/provider/user_provider.dart';
 import 'package:assignment_zrex_instagram/view/screens/authentication_screens/login_screen.dart';
-import 'package:assignment_zrex_instagram/view/screens/authentication_screens/register_screen.dart';
 import 'package:assignment_zrex_instagram/view/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -35,6 +34,8 @@ class _MyAppState extends ConsumerState<MyApp> {
   themeMode: ThemeMode.system,
       title: 'Flutter Demo',
       home:user!.token.isNotEmpty? MainScreen():LoginScreen(),
+      
+      
     );
   }
 }

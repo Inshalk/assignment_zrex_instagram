@@ -71,44 +71,41 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   const SizedBox(height: 30),
 
                   // Email Field
-                  _buildTextField(
-                    label: 'Email',
+                  TextFormField(
+                    keyboardType: TextInputType.emailAddress,
+                    style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                     onChanged: (value) => email = value,
-                    validator: (value) =>
-                        value!.isEmpty ? 'Enter your email' : null,
-
-                        isDarkMode: isDarkMode,
+                    validator: (value) => (value == null || value.isEmpty) ? 'Enter your email' : null,
+                    decoration: inputDecoration('Email', isDarkMode),
                   ),
                   const SizedBox(height: 15),
 
-                  // Full Name Field
-                  _buildTextField(
-                    label: 'Full Name',
+                  // fullname field
+                  TextFormField(
+                    textCapitalization: TextCapitalization.words,
+                    style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                     onChanged: (value) => fullName = value,
-                    validator: (value) =>
-                        value!.isEmpty ? 'Enter your full name' : null,
-                        isDarkMode: isDarkMode,
+                    validator: (value) => (value == null || value.isEmpty) ? 'Enter your full name' : null,
+                    decoration: inputDecoration('Full Name', isDarkMode),
                   ),
                   const SizedBox(height: 15),
 
                   // Username Field
-                  _buildTextField(
-                    label: 'Username',
+                  TextFormField(
+                    style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                     onChanged: (value) => userName = value,
-                    validator: (value) =>
-                        value!.isEmpty ? 'Enter your username' : null,
-                        isDarkMode: isDarkMode,
+                    validator: (value) => (value == null || value.isEmpty) ? 'Enter your username' : null,
+                    decoration: inputDecoration('Username', isDarkMode),
                   ),
                   const SizedBox(height: 15),
 
                   // Password Field
-                  _buildTextField(
-                    label: 'Password',
-                    isPassword: true,
+                  TextFormField(
+                    obscureText: true,
+                    style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                     onChanged: (value) => password = value,
-                    validator: (value) =>
-                        value!.isEmpty ? 'Enter your password' : null,
-                        isDarkMode: isDarkMode,
+                    validator: (value) => (value == null || value.isEmpty) ? 'Enter your password' : null,
+                    decoration: inputDecoration('Password', isDarkMode),
                   ),
                   const SizedBox(height: 25),
 
@@ -151,7 +148,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 20),
 
-                  // Login Redirection
+                  
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -161,7 +158,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       InkWell(
                         onTap: () {
-                          Navigator.push(context,
+                          Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) {
                             return LoginScreen();
                           }));
@@ -185,23 +182,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  // Helper method to keep code clean
-  Widget _buildTextField({
-    required String label,
-    required Function(String) onChanged,
-    required String? Function(String?) validator,
-    required bool isDarkMode,
-    bool isPassword = false,
-    
-  }) {
-    return TextFormField(
-      obscureText: isPassword,
-      onChanged: onChanged,
-      validator: validator,
-      decoration: InputDecoration(
+  InputDecoration inputDecoration(String hint, bool isDarkMode) {
+      return InputDecoration(
         fillColor: isDarkMode ? Colors.grey[900] : Colors.white,
         filled: true,
-        hintText: label,
+        hintText: hint,
+        hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
         contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
@@ -211,11 +197,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
           borderRadius: BorderRadius.circular(5),
           borderSide: BorderSide(color: Colors.grey.shade300),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-          borderSide: const BorderSide(color: Colors.blue),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.blue),
         ),
-      ),
-    );
-  }
+      );
+    }
 }
