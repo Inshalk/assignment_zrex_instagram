@@ -33,8 +33,8 @@ class _MyAppState extends ConsumerState<MyApp> {
   ),
   themeMode: ThemeMode.system,
       title: 'Flutter Demo',
-      home:user!.token.isNotEmpty? MainScreen():LoginScreen(),
-      
+      // home:user!.token.isNotEmpty? MainScreen():LoginScreen(),
+      home: MainScreen(),
       
     );
   }

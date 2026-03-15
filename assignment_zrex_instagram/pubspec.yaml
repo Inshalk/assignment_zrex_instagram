@@ -44,6 +44,7 @@ dependencies:
   pinch_zoom_release_unzoom: ^2.0.0
   scrollable_positioned_list: ^0.3.8
   touch_indicator: ^2.0.0
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

@@ -54,12 +54,18 @@ class _PostCardState extends State<PostCard> {
               const SizedBox(width: 10),
               Text(
                 widget.username,
-                style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
               const SizedBox(width: 4),
               const Icon(Icons.verified, color: Colors.blue, size: 14),
               const Spacer(),
-              const Icon(Icons.more_vert, color: Colors.black),
+              IconButton(
+                icon: const Icon(Icons.more_vert, color: Colors.black),
+                onPressed: () => _showPostOptions(context),
+              ),
             ],
           ),
         ),
@@ -73,9 +79,9 @@ class _PostCardState extends State<PostCard> {
               // FIXED: Added PageView to allow multiple images
               PageView.builder(
                 controller: _pageController,
-                
-                physics: _blockScroll 
-                    ? const NeverScrollableScrollPhysics() 
+
+                physics: _blockScroll
+                    ? const NeverScrollableScrollPhysics()
                     : const BouncingScrollPhysics(),
                 itemCount: widget.images.length,
                 itemBuilder: (context, index) {
@@ -87,7 +93,7 @@ class _PostCardState extends State<PostCard> {
                     maxOverlayOpacity: 0.5,
                     overlayColor: Colors.black,
                     fingersRequiredToPinch: 2,
-                    
+
                     child: Image.network(
                       widget.images[index],
                       fit: BoxFit.cover,
@@ -96,7 +102,7 @@ class _PostCardState extends State<PostCard> {
                   );
                 },
               ),
-              
+
               // --- Dot Indicator ---
               if (widget.images.length > 1 && !_blockScroll)
                 Positioned(
@@ -131,9 +137,20 @@ class _PostCardState extends State<PostCard> {
               onPressed: () => _showUnimplementedSnackBar(context, 'Comments'),
             ),
             IconButton(
+              icon: const Icon(
+                Iconsax.repeat_copy,
+                color: Colors.black,
+                size: 24,
+              ),
+              onPressed: () {
+                _showUnimplementedSnackBar(context, 'Repost');
+              },
+            ),
+            IconButton(
               icon: Transform.rotate(
                 angle: -45 * 3.1415926535 / 180,
-                child: Icon(Iconsax.direct_right_copy)),
+                child: Icon(Iconsax.direct_right_copy),
+              ),
               onPressed: () => _showUnimplementedSnackBar(context, 'Share'),
             ),
             const Spacer(),
@@ -147,6 +164,112 @@ class _PostCardState extends State<PostCard> {
           ],
         ),
       ],
+    );
+  }
+
+  void _showPostOptions(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Container(
+          padding: const EdgeInsets.only(top: 12, bottom: 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // 1. Top Drag Handle
+              Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // 2. The Circle Button Row (Save and QR Code)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildCircleButton(Iconsax.archive_1_copy, 'Save'),
+                  _buildCircleButton(Iconsax.scan_barcode_copy, 'QR code'),
+                ],
+              ),
+              const SizedBox(height: 10),
+              const Divider(thickness: 0.5),
+
+              // 3. List of Options
+              _buildListOption(Iconsax.star_copy, 'Add to favorites'),
+              _buildListOption(Iconsax.user_minus_copy, 'Unfollow'),
+              const Divider(thickness: 0.5),
+              _buildListOption(
+                Iconsax.info_circle_copy,
+                "Why you're seeing this post",
+              ),
+              _buildListOption(Iconsax.eye_slash_copy, 'Hide'),
+              _buildListOption(Iconsax.personalcard_copy, 'About this account'),
+
+              // 4. Dangerous Option
+              _buildListOption(
+                Iconsax.danger_copy,
+                'Report',
+                textColor: Colors.red,
+                iconColor: Colors.red,
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  // Helper for the Top Circle Buttons
+  Widget _buildCircleButton(IconData icon, String label) {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(18),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: Colors.grey.shade300, width: 1.5),
+          ),
+          child: Icon(icon, size: 28, color: Colors.black),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          label,
+          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+        ),
+      ],
+    );
+  }
+
+  // Helper for the List Rows
+  Widget _buildListOption(
+    IconData icon,
+    String title, {
+    Color textColor = Colors.black,
+    Color iconColor = Colors.black,
+  }) {
+    return ListTile(
+      leading: Icon(icon, color: iconColor, size: 24),
+      title: Text(
+        title,
+        style: TextStyle(
+          color: textColor,
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+      onTap: () {
+        Navigator.pop(context);
+        _showUnimplementedSnackBar(context, title);
+      },
     );
   }
 }
