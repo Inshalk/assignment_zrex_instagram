@@ -1,1 +1,1 @@
-String uri="http://10.74.161.156:3000";
+String uri="http://YourIP:3000";
