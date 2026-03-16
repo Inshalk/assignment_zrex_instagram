@@ -25,7 +25,7 @@ class _StoryWidgetState extends State<StoryWidget> {
     return [
       StoryModel(name: "Your story", imageUrl: "https://i.pravatar.cc/150?u=8", isUser: true),
       StoryModel(name: "john deo", imageUrl: "https://i.pravatar.cc/150?u=2", isLive: true),
-      StoryModel(name: "Sparrow", imageUrl: "https://i.pravatar.cc/150?u=3"),
+      StoryModel(name: "Sparrow", imageUrl: "https://i.pravatar.cc/150?u=7"),
       StoryModel(name: "nick", imageUrl: "https://i.pravatar.cc/150?u=4"),
       StoryModel(name: "strange", imageUrl: "https://i.pravatar.cc/150?u=5"),
     ];
