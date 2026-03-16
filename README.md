@@ -58,3 +58,5 @@ String uri="http://yourIP:3000";
 
 i hope you like my work i look forward for this opportunity
 and i have used provider , sharedPreference and stateful widget
+
+if you wanna zoom hold ctrl + mouse Right click and move mouse
