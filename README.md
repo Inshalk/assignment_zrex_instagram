@@ -1,5 +1,5 @@
 I have created my backend using node js ,express and mongoDB
-I have Decided to fetch all data from my mongoDB backend but that pinch to zoom thing ruined everything(it consumed my most time but i have successfully implemented it) so the rest as you see I have signUp and signIn screen(with hashed password) that is connected to Backend i have done created token but i have not implemented token authentication (we send request from frontend to backend to validate token based on it we will login we can also set token expiry) 
+I have Decided to fetch all data from my mongoDB backend but that pinch to zoom thing ruined everything(it consumed my most time but i have successfully implemented it).
 
 
 # Instructions to run Backend
