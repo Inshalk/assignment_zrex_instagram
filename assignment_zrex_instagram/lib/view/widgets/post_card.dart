@@ -98,6 +98,43 @@ class _PostCardState extends State<PostCard> {
                       widget.images[index],
                       fit: BoxFit.cover,
                       cacheWidth: 800,
+                      // 1. Handle actual load errors (Wrong URL, No Internet, etc.)
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          color: Colors
+                              .grey[200], // Matches Instagram's light gray placeholder
+                          child: const Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.broken_image_outlined,
+                                  color: Colors.grey,
+                                  size: 40,
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  "Couldn't load image",
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                      // 2. Optional: Handle the "Loading" state (Shimmer or Spinner)
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Container(
+                          color: Colors.grey[100],
+                          child: const Center(
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          ),
+                        );
+                      },
                     ),
                   );
                 },

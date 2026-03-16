@@ -1,4 +1,5 @@
 import 'package:assignment_zrex_instagram/view/nav_screens/details_screen/home_screen.dart';
+import 'package:assignment_zrex_instagram/view/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
@@ -17,7 +18,7 @@ class _MainScreenState extends State<MainScreen> {
     const Center(child: Text('Search')),
     const Center(child: Text('Create')),
     const Center(child: Text('Reels')),
-    const Center(child: Text('Profile')),
+    ProfileScreen(),
   ];
 
   @override
@@ -76,10 +77,10 @@ class _MainScreenState extends State<MainScreen> {
                     width: 1.5,
                   ),
                 ),
-                child: const CircleAvatar(
+                child:  CircleAvatar(
                   radius: 12,
                   backgroundColor: Colors.grey,
-                  // Replace with: backgroundImage: NetworkImage(userImageUrl),
+                  backgroundImage: NetworkImage('https://i.pravatar.cc/150?u=8'),
                 ),
               ),
               label: 'Profile',

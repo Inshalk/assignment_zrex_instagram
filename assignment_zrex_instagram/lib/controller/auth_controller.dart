@@ -129,4 +129,36 @@ class AuthController {
       print(e);
     }
   }
+
+  //SignOut
+  Future<void> signOutUser({
+    required BuildContext context,
+    required WidgetRef ref,
+  }) async {
+    try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      //Clear the token and user from the shredprefference
+      await preferences.remove('auth_token');
+      await preferences.remove('user');
+
+      //clear the user state
+      ref.read(userProvider.notifier).signOut();
+
+
+      //Navigate the user back to the loginScreen
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return LoginScreen();
+          },
+        ),
+        (route) => false,
+      );
+
+      showSnackBar(context, 'Sign out successfully');
+    } catch (e) {
+      showSnackBar(context, 'Error While Sign out: ${e} ');
+    }
+  }
 }

@@ -18,7 +18,6 @@ class MyApp extends ConsumerStatefulWidget {
 }
 
 class _MyAppState extends ConsumerState<MyApp> {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     final user= ref.watch(userProvider);
@@ -33,8 +32,7 @@ class _MyAppState extends ConsumerState<MyApp> {
   ),
   themeMode: ThemeMode.system,
       title: 'Flutter Demo',
-      // home:user!.token.isNotEmpty? MainScreen():LoginScreen(),
-      home: MainScreen(),
+      home:(user != null && user.token.isNotEmpty)? const MainScreen():const LoginScreen(),    
       
     );
   }

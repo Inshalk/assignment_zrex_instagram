@@ -23,7 +23,7 @@ class _StoryWidgetState extends State<StoryWidget> {
   Future<List<StoryModel>> fetchStories() async {
     await Future.delayed(const Duration(seconds: 2)); // Simulate network lag
     return [
-      StoryModel(name: "Your story", imageUrl: "https://i.pravatar.cc/150?u=1", isUser: true),
+      StoryModel(name: "Your story", imageUrl: "https://i.pravatar.cc/150?u=8", isUser: true),
       StoryModel(name: "john deo", imageUrl: "https://i.pravatar.cc/150?u=2", isLive: true),
       StoryModel(name: "Sparrow", imageUrl: "https://i.pravatar.cc/150?u=3"),
       StoryModel(name: "nick", imageUrl: "https://i.pravatar.cc/150?u=4"),
