@@ -213,53 +213,70 @@ class _PostCardState extends State<PostCard> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (context) {
-        return Container(
-          padding: const EdgeInsets.only(top: 12, bottom: 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // 1. Top Drag Handle
-              Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              const SizedBox(height: 20),
-
-              // 2. The Circle Button Row (Save and QR Code)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setSheetState) {
+            return Container(
+              padding: const EdgeInsets.only(top: 12, bottom: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  _buildCircleButton(Iconsax.archive_1_copy, 'Save'),
-                  _buildCircleButton(Iconsax.scan_barcode_copy, 'QR code'),
+                  // 1. Top Drag Handle
+                  Container(
+                    width: 40,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // 2. The Circle Button Row (Save and QR Code)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          _isSaved ? Iconsax.archive_1 : Iconsax.archive_1_copy,
+                          color: Colors.black,
+                        ),
+                        onPressed: () {
+                          setState(() => _isSaved = !_isSaved);
+                          setSheetState() {}
+                        },
+                      ),
+
+                      _buildCircleButton(Iconsax.scan_barcode_copy, 'QR code'),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  const Divider(thickness: 0.5),
+
+                  // 3. List of Options
+                  _buildListOption(Iconsax.star_copy, 'Add to favorites'),
+                  _buildListOption(Iconsax.user_minus_copy, 'Unfollow'),
+                  const Divider(thickness: 0.5),
+                  _buildListOption(
+                    Iconsax.info_circle_copy,
+                    "Why you're seeing this post",
+                  ),
+                  _buildListOption(Iconsax.eye_slash_copy, 'Hide'),
+                  _buildListOption(
+                    Iconsax.personalcard_copy,
+                    'About this account',
+                  ),
+
+                  // 4. Dangerous Option
+                  _buildListOption(
+                    Iconsax.danger_copy,
+                    'Report',
+                    textColor: Colors.red,
+                    iconColor: Colors.red,
+                  ),
                 ],
               ),
-              const SizedBox(height: 10),
-              const Divider(thickness: 0.5),
-
-              // 3. List of Options
-              _buildListOption(Iconsax.star_copy, 'Add to favorites'),
-              _buildListOption(Iconsax.user_minus_copy, 'Unfollow'),
-              const Divider(thickness: 0.5),
-              _buildListOption(
-                Iconsax.info_circle_copy,
-                "Why you're seeing this post",
-              ),
-              _buildListOption(Iconsax.eye_slash_copy, 'Hide'),
-              _buildListOption(Iconsax.personalcard_copy, 'About this account'),
-
-              // 4. Dangerous Option
-              _buildListOption(
-                Iconsax.danger_copy,
-                'Report',
-                textColor: Colors.red,
-                iconColor: Colors.red,
-              ),
-            ],
-          ),
+            );
+          },
         );
       },
     );

@@ -1,6 +1,6 @@
 import 'package:assignment_zrex_instagram/model/post_model.dart';
 import 'package:assignment_zrex_instagram/view/widgets/post_card.dart';
-import 'package:assignment_zrex_instagram/view/widgets/post_shimmer.dart';
+import 'package:assignment_zrex_instagram/utils/post_shimmer.dart';
 import 'package:flutter/material.dart';
 
 class Post extends StatefulWidget {
@@ -99,3 +99,4 @@ class _PostState extends State<Post> {
     );
   }
 }
+

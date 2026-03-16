@@ -31,7 +31,7 @@ class _MyAppState extends ConsumerState<MyApp> {
     scaffoldBackgroundColor: Colors.black,
   ),
   themeMode: ThemeMode.system,
-      title: 'Flutter Demo',
+      title: 'Instagram',
       home:(user != null && user.token.isNotEmpty)? const MainScreen():const LoginScreen(),    
       
     );

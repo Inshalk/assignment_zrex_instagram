@@ -1,5 +1,6 @@
 import 'package:assignment_zrex_instagram/view/nav_screens/details_screen/home_screen.dart';
-import 'package:assignment_zrex_instagram/view/screens/profile_screen.dart';
+import 'package:assignment_zrex_instagram/view/nav_screens/details_screen/profile_screen.dart';
+import 'package:assignment_zrex_instagram/view/nav_screens/details_screen/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
@@ -14,11 +15,11 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
-   HomeScreen(),
+   const HomeScreen(),
     const Center(child: Text('Search')),
-    const Center(child: Text('Create')),
-    const Center(child: Text('Reels')),
-    ProfileScreen(),
+    const Center(child: Text('Messages')),
+  const SearchScreen(),
+   const ProfileScreen(),
   ];
 
   @override
